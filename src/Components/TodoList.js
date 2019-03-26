@@ -1,44 +1,43 @@
 import React,{Component} from 'react';
 
-class TodoListItem extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      items:[{index:1, value:'input'}]
-    }
-
-    this.onClickClose = this.onClickClose.bind(this);
-  }
-  onClickClose() {
-    var index = parseInt(this.props.index);
-    this.props.removeItem(index);
-  }
-  render () {
-    return(
-      <li className="list-group-item ">
-        <div>
-          <span onClick={this.onClickDone}></span>
-          {this.props.item.value}
-          <button type="button" className="close" onClick={this.onClickClose}>&times;</button>
-        </div>
-      </li>     
-    );
-  }
-}
 class TodoList extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      list:[],
+      inputValue:''
+    }
+  }
+  changeInput(input){
+    this.setState({
+      inputValue: input
+    })
+  }
+
+  addList(input){
+    let listArr = this.state.list
+    listArr.push(input);
+
+    this.setState({
+      list: listArr
+    })
+  }
+
   render () {
-    let items = this.props.items.map((item, index) => {
-      return (
-        <TodoListItem key={index} item={item} index={index} removeItem={this.props.removeItem}/>
-      );
-    });
     return (
-      <ul className="list-group"> {items} </ul>
-    );
+      <div>
+        <header>
+          <h1>Todo List</h1>
+        </header>
+        <input 
+        type = 'text'
+        value = {this.state.inputValue}
+        onChange = { (e) => this.changeInput(e.target.value)} />
+        <button onClick = {(e) => this.addList(e.target.value)}>추가</button>
+      </div>
+    )
   }
 }
-
 
 
 export default TodoList
