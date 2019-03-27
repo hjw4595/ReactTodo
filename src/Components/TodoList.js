@@ -15,11 +15,12 @@ class TodoList extends Component {
   }
 
   addList(input){
-    let listArr = this.state.list
+    let listArr = this.state.list;
     listArr.push(input);
 
     this.setState({
-      list: listArr
+      list: listArr,
+      inputValue:''
     })
   }
 
@@ -33,7 +34,11 @@ class TodoList extends Component {
         type = 'text'
         value = {this.state.inputValue}
         onChange = { (e) => this.changeInput(e.target.value)} />
-        <button onClick = {(e) => this.addList(e.target.value)}>추가</button>
+        <button onClick = {(e) => this.addList(this.state.inputValue)}>추가</button>
+
+        <ul>
+          {this.state.list.map( (val) => <li>{val}</li>)}
+        </ul>
       </div>
     )
   }
