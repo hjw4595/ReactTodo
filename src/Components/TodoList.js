@@ -1,48 +1,52 @@
-import React,{Component} from 'react';
+import React, {Component} from 'react';
 
 class TodoList extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      list:[],
-      inputValue:''
+      list: [],
+      inputValue: ''
     }
   }
-  changeInput(input){
-    this.setState({
-      inputValue: input
-    })
+  changeInput = (input) => (e) =>  {
+    this.setState({inputValue: e.target.value})
   }
 
-  addList(input){
+  addList = (input) => (e) => {
     let listArr = this.state.list;
     listArr.push(input);
 
-    this.setState({
-      list: listArr,
-      inputValue:''
-    })
+    this.setState({list: listArr, inputValue: ''})
   }
 
-  render () {
+  deletList = (input) => (e) =>  {
+    let listArr = this.state.list;
+    listArr = listArr.filter(o => {
+      if (o !== input) return o;
+    });
+
+    this.setState({list: listArr})
+  }
+  render() {
     return (
       <div>
         <header>
           <h1>Todo List</h1>
         </header>
-        <input 
-        type = 'text'
-        value = {this.state.inputValue}
-        onChange = { (e) => this.changeInput(e.target.value)} />
-        <button onClick = {(e) => this.addList(this.state.inputValue)}>추가</button>
+        <input
+          type='text'
+          value={this.state.inputValue}
+          onChange= {this.changeInput()}/>
+        <button onClick= {this.addList(this.state.inputValue)}>추가</button>
 
         <ul>
-          {this.state.list.map( (val) => <li>{val}</li>)}
+          {this.state.list.map((val,index) => <li key={index}>{val}
+              <button onClick= {this.deletList(val)}>삭제</button>
+            </li>)}
         </ul>
       </div>
     )
   }
 }
-
 
 export default TodoList
