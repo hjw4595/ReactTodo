@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import TodoItem from './TodoItem'
+import TodoForm from './TodoForm';
 
 class TodoList extends Component {
   constructor(props) {
@@ -8,22 +10,9 @@ class TodoList extends Component {
       inputValue: ''
     }
   }
-  changeInput = (input) => (e) =>  {
-    this.setState({inputValue: e.target.value})
-  }
-
-  addList = (input) => (e) => {
-    let listArr = this.state.list;
-    listArr.push(input);
-
-    this.setState({list: listArr, inputValue: ''})
-  }
-
   deletList = (input) => (e) =>  {
     let listArr = this.state.list;
-    listArr = listArr.filter(o => {
-      if (o !== input) return o;
-    });
+    listArr = listArr.filter(o => o !==  input).map((index) => <TodoItem key ={index}/>)
 
     this.setState({list: listArr})
   }
@@ -33,17 +22,8 @@ class TodoList extends Component {
         <header>
           <h1>Todo List</h1>
         </header>
-        <input
-          type='text'
-          value={this.state.inputValue}
-          onChange= {this.changeInput()}/>
-        <button onClick= {this.addList(this.state.inputValue)}>추가</button>
-
-        <ul>
-          {this.state.list.map((val,index) => <li key={index}>{val}
-              <button onClick= {this.deletList(val)}>삭제</button>
-            </li>)}
-        </ul>
+        <TodoForm />
+        <TodoItem /> 
       </div>
     )
   }
