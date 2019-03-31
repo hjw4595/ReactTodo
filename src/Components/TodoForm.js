@@ -14,10 +14,13 @@ class TodoForm extends Component{
 
     render () {
         return(
+          <div>
         <input
         type='text'
         value={this.props.inputValue}
         onChange= {this.changeInput()}/>
+        <button onClick={this.addList()}>추가</button>
+        </div>
         )}
 }
 

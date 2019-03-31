@@ -22,8 +22,8 @@ class TodoList extends Component {
         <header>
           <h1>Todo List</h1>
         </header>
-        <TodoForm />
-        <TodoItem /> 
+        <TodoForm list ={this.state.list} inputValue = {this.state.inputValue} />
+        <TodoItem list ={this.state.list} deletList = {this.deletList()}/> 
       </div>
     )
   }
